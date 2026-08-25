@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#dc9615">
+  <meta name="description" content="Bunny Deluxe. Coming soon.">
+  <title>Bunny Deluxe</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🐇%3C/text%3E%3C/svg%3E">
+  <style>
+    :root{--mustard:#dc9615;--ink:#090806;--red:#ef3d2f}
+    *{box-sizing:border-box}
+    html,body{margin:0;width:100%;height:100%;background:var(--mustard);overflow:hidden}
+    body{font-family:Georgia,"Times New Roman",serif;color:var(--ink);touch-action:manipulation}
+    .stage{position:fixed;inset:0;display:grid;place-items:center;background:radial-gradient(circle at 15% 20%,rgba(255,215,90,.13),transparent 24rem),radial-gradient(circle at 85% 75%,rgba(110,55,0,.08),transparent 28rem),var(--mustard);isolation:isolate}
+    .art{width:100%;height:100%;object-fit:cover;object-position:center;display:block;filter:saturate(1.03) contrast(1.015);transform:scale(1.012);animation:alive 8s ease-in-out infinite alternate}
+    .veil{position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(0,0,0,.017) 0 1px,transparent 1px 4px);mix-blend-mode:multiply;opacity:.42}
+    .spark{position:absolute;width:.55rem;height:.55rem;pointer-events:none;opacity:.48;animation:drift var(--t) ease-in-out infinite alternate}
+    .spark:before,.spark:after{content:"";position:absolute;inset:45% 0;background:#111;height:1px;transform:rotate(var(--r))}
+    .spark:after{transform:rotate(calc(var(--r) + 90deg))}
+    .spark.red:before,.spark.red:after{background:var(--red);box-shadow:0 0 .7rem rgba(239,61,47,.55)}
+    .s1{left:7%;top:15%;--t:7s;--r:15deg}.s2{right:8%;top:24%;--t:9s;--r:32deg}.s3{left:12%;bottom:13%;--t:8s;--r:-12deg}.s4{right:13%;bottom:16%;--t:10s;--r:5deg}.s5{left:4%;top:55%;--t:11s;--r:42deg}
+    .sig{position:absolute;right:clamp(.55rem,2vw,1.5rem);bottom:clamp(.5rem,1.8vw,1.25rem);font:700 11px/1.1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase;opacity:.28;user-select:none}
+    .burst{position:fixed;width:8px;height:8px;pointer-events:none;z-index:5}
+    .burst i{position:absolute;left:3px;top:3px;width:2px;height:18px;background:var(--ink);transform-origin:1px 1px;animation:pop .55s ease-out forwards}
+    .burst i:nth-child(2n){background:var(--red)}
+    @keyframes alive{from{transform:scale(1.008) translate3d(-.15%,0,0)}to{transform:scale(1.018) translate3d(.15%,-.1%,0)}}
+    @keyframes drift{from{transform:translateY(-4px) rotate(-8deg);opacity:.26}to{transform:translateY(5px) rotate(8deg);opacity:.58}}
+    @keyframes pop{to{transform:rotate(var(--a)) translateY(-25px) scaleY(.2);opacity:0}}
+    @media (max-aspect-ratio:4/5){.art{object-fit:contain;transform:none;animation:phoneAlive 9s ease-in-out infinite alternate}@keyframes phoneAlive{from{transform:scale(.985)}to{transform:scale(1)}}.sig{display:none}}
+    @media (prefers-reduced-motion:reduce){.art,.spark{animation:none}}
+  </style>
+</head>
+<body>
+  <main class="stage" aria-label="Bunny Deluxe coming soon">
+    <img class="art" src="assets/bunny-deluxe-coming-soon.webp" alt="Bunny Deluxe coming soon artwork: a bunny drummer firing red eye lasers at a broken robot.">
+    <div class="veil"></div>
+    <span class="spark s1"></span><span class="spark s2 red"></span><span class="spark s3"></span><span class="spark s4"></span><span class="spark s5 red"></span>
+    <div class="sig">bunnydeluxe.co.uk</div>
+  </main>
+  <script>
+    (()=>{
+      const stage=document.querySelector('.stage');
+      const art=document.querySelector('.art');
+      if(matchMedia('(pointer:fine)').matches){
+        addEventListener('pointermove',e=>{
+          const x=(e.clientX/innerWidth-.5)*3,y=(e.clientY/innerHeight-.5)*2;
+          art.style.objectPosition=`calc(50% + ${x}px) calc(50% + ${y}px)`;
+        },{passive:true});
+        stage.addEventListener('click',e=>{
+          const b=document.createElement('span');b.className='burst';b.style.left=(e.clientX-4)+'px';b.style.top=(e.clientY-4)+'px';
+          for(let i=0;i<8;i++){const r=document.createElement('i');r.style.setProperty('--a',(i*45)+'deg');b.appendChild(r)}
+          document.body.appendChild(b);setTimeout(()=>b.remove(),650);
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
