@@ -40,6 +40,7 @@ function checkoutConfig() {
     inkthreadableBrand: environment('INKTHREADABLE_BRAND_NAME', 'Bunny Deluxe'),
     inkthreadableLabelName: environment('INKTHREADABLE_LABEL_NAME'),
     inkthreadableShippingMethod: environment('INKTHREADABLE_SHIPPING_METHOD', 'regular'),
+    fulfilmentEnabled: environment('FULFILMENT_ENABLED', 'false').toLowerCase() === 'true',
     journalPath: path.resolve(here, environment('ORDER_JOURNAL_PATH', './data/fulfilment-journal.json')),
   };
 }
@@ -165,6 +166,7 @@ export async function sendToInkthreadable(order, config = checkoutConfig()) {
 export async function fulfilPaidSession(session, config = checkoutConfig()) {
   if (!config.ready) throw new Error('Fulfilment is not configured yet.');
   if (session.payment_status !== 'paid') return { skipped: true };
+  if (!config.fulfilmentEnabled) return { skipped: true, reason: 'Fulfilment is disabled.' };
   const journal = await readJournal(config.journalPath);
   if (journal[session.id]?.status === 'submitted') return { duplicate: true };
   if (journal[session.id]?.status === 'pending') throw new Error('This fulfilment attempt is already pending. Manual review is required.');
