@@ -6,7 +6,7 @@ This repository contains the Bunny Deluxe T-shirt shop: a one-page frontend, a s
 
 It is application source and deployment configuration, **not a guarantee that checkout is currently enabled on a public site**. The default configuration keeps payment disabled until the required credentials and production details are supplied.
 
-The browser The browser never sets the price, SKU, or fulfilment request.
+The browser never sets the price, SKU, or fulfilment request.
 
 ## What is live in the code
 
