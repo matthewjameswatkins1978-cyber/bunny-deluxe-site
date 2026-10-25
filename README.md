@@ -1,6 +1,12 @@
-# Bunny Deluxe shop
+# Bunny Deluxe Shop
 
-A one-page Bunny Deluxe shop with a server-owned six-product catalogue and Stripe Checkout. The browser never sets the price, SKU, or fulfilment request.
+**A small, characterful storefront with deliberately boring payment logic.**
+
+This repository contains the Bunny Deluxe T-shirt shop: a one-page frontend, a server-owned six-design catalogue, Stripe Checkout, and an Inkthreadable fulfilment integration. The designs provide the personality; the server, not the browser, decides what gets charged and fulfilled.
+
+It is application source and deployment configuration, **not a guarantee that checkout is currently enabled on a public site**. The default configuration keeps payment disabled until the required credentials and production details are supplied.
+
+The browser never sets the price, SKU, or fulfilment request.
 
 ## What is live in the code
 
